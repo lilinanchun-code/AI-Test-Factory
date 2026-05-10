@@ -81,6 +81,14 @@ Review / Reuse / Collaboration
 
 ---
 
+## 🏗 System Architecture
+
+For more details about the workflow design, see:
+
+[System Architecture](docs/system_architecture.md)
+
+---
+
 ## 🛠 Project Structure
 
 ```text
