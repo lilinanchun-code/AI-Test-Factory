@@ -85,7 +85,8 @@ Review / Reuse / Collaboration
 
 For more details about the workflow design, see:
 
-[System Architecture](docs/system_architecture.md)
+- [System Architecture](docs/system_architecture.md)
+- [Feishu Collaboration Workflow](docs/feishu_workflow.md)
 
 ---
 
