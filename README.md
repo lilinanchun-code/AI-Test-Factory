@@ -87,7 +87,7 @@ For more details about the workflow design, see:
 
 - [System Architecture](docs/system_architecture.md)
 - [Feishu Collaboration Workflow](docs/feishu_workflow.md)
-
+- [Interview Story](docs/interview_story.md)
 ---
 
 ## 🛠 Project Structure
