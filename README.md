@@ -134,6 +134,46 @@ AI-Test-Factory/
 
 ---
 
+## Demo Documents
+
+- [Demo Script](docs/demo_script.md)
+- [System Demo Flow](docs/system_demo_flow.md)
+- [Interview Demo Process](docs/interview_demo_process.md)
+- [Example Showcase](docs/example_showcase.md)
+- [System Architecture](docs/system_architecture.md)
+- [Project Positioning](docs/project_positioning.md)
+- [Examples Index](docs/examples_index.md)
+
+---
+
+## Current Focus
+
+当前阶段重点：
+
+- 测试场景沉淀
+- Prompt Workflow
+- AI 测试资产生成
+- 多入口协作
+- 演示能力建设
+
+---
+
+## Long-Term Direction
+
+未来希望逐步扩展为：
+
+AI-assisted Testing Workflow Platform
+
+重点探索：
+
+- 测试资产沉淀
+- Prompt 模块化
+- 企业协作
+- AI + Testing Workflow
+- 工程知识复用
+
+---
+
 ## 📍 Current Status
 
 - ✅ Structured workflow implemented
