@@ -1,6 +1,19 @@
 # AI Test Factory
 
-AI Test Factory is a lightweight AI-assisted automotive testing workflow system designed to transform natural language problem descriptions into structured engineering test artifacts.
+AI Test Factory 是一个面向汽车电子测试场景的 AI 辅助测试资产生产系统。
+
+它的目标不是简单生成文档，而是通过标准化输入、结构化 Prompt、自动化 Workflow，把测试问题转化为可复用的工程资产。
+
+---
+
+## What it does
+
+输入一个测试问题，例如：
+
+```text
+仪表盘重启后时间丢失
+模块：Cluster
+场景：整车断电重启
 
 ---
 
