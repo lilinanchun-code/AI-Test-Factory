@@ -1,60 +1,86 @@
-# AI Test Factory｜面试讲解稿
+# Why I Built AI Test Factory
 
-## 1. 我为什么做这个项目
+Traditional testing workflows often involve repetitive documentation, fragmented communication, and time-consuming scenario analysis.
 
-我想应聘的是汽车电子测试相关岗位，所以我没有只停留在学习测试概念，而是尝试把测试工作中常见的输入、分析、用例设计和缺陷描述，做成一个可复用的辅助系统。
+I realized that AI is highly suitable for structured testing workflows, especially in automotive electronics testing environments such as IVI and Cluster systems.
 
-这个项目的目标不是替代测试工程师，而是帮助测试人员更快地把一个问题场景转化为结构化测试产物。
+AI Test Factory was built to improve the efficiency and consistency of testing-related production tasks.
 
-## 2. 这个系统解决什么问题
 
-在汽车电子测试中，很多问题最开始只是一个模糊现象，例如：
+# Problems This System Solves
 
-- 中控屏开机偶发黑屏
-- 倒车影像偶发无画面
-- 仪表盘重启后时间丢失
+1. Repetitive test case writing
+2. Low efficiency in organizing test points
+3. Inconsistent bug report structures
+4. Difficult knowledge accumulation
+5. High onboarding cost for new testers
+6. Long communication chains between testing stages
 
-测试人员需要进一步拆解模块、场景、风险点、测试路径和缺陷描述。
 
-AI Test Factory 做的事情就是：
+# System Workflow
 
-```text
-输入一个测试场景
+Input Scenario
 ↓
-生成测试点
+Structured Parsing
 ↓
-生成测试用例
+Prompt Construction
 ↓
-生成缺陷报告
+AI-assisted Generation
 ↓
-沉淀为可复用案例
-# AI Test Factory｜面试讲解稿
+Structured Outputs
 
-## 1. 我为什么做这个项目
+The system currently generates:
 
-我想应聘的是汽车电子测试相关岗位，所以我没有只停留在学习测试概念，而是尝试把测试工作中常见的输入、分析、用例设计和缺陷描述，做成一个可复用的辅助系统。
+- test_points.md
+- test_cases.md
+- bug_report.md
 
-这个项目的目标不是替代测试工程师，而是帮助测试人员更快地把一个问题场景转化为结构化测试产物。
+All outputs are organized into reusable workflow structures.
 
-## 2. 这个系统解决什么问题
 
-在汽车电子测试中，很多问题最开始只是一个模糊现象，例如：
+# Design Principles
 
-- 中控屏开机偶发黑屏
-- 倒车影像偶发无画面
-- 仪表盘重启后时间丢失
+## Structure First
 
-测试人员需要进一步拆解模块、场景、风险点、测试路径和缺陷描述。
+The goal is not only fast generation.
 
-AI Test Factory 做的事情就是：
+The most important thing is maintaining stable and understandable structures.
 
-```text
-输入一个测试场景
-↓
-生成测试点
-↓
-生成测试用例
-↓
-生成缺陷报告
-↓
-沉淀为可复用案例
+
+## Production First
+
+This system is designed for continuous workflow production instead of one-time demonstrations.
+
+
+## Minimal Main Pipeline
+
+The core workflow should remain simple and stable.
+
+Additional capabilities should be modularized instead of overloading the main pipeline.
+
+
+# Example Scenarios
+
+- IVI black screen during boot
+- Cluster time loss after reboot
+- Reverse camera intermittent no display
+
+The system can automatically generate:
+
+- testing points
+- test cases
+- bug reports
+
+based on structured scenario inputs.
+
+
+# Future Expansion
+
+Planned future directions include:
+
+1. Feishu integration
+2. OpenClaw integration
+3. Historical bug knowledge base
+4. Team collaboration workflows
+5. Structured testing knowledge accumulation
+6. AI-assisted testing workflow orchestration
