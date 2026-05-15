@@ -1,0 +1,10 @@
+# Cluster Time Loss Example
+
+---
+
+# Scenario
+
+```text
+仪表盘重启后时间丢失
+模块：Cluster
+场景：整车断电重启
