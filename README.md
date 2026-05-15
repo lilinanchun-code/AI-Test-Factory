@@ -1,37 +1,36 @@
 # AI Test Factory
 
-AI Test Factory is an AI-assisted automotive testing workflow system designed for structured testing generation and engineering workflow simulation.
+AI Test Factory is a lightweight AI-assisted automotive testing workflow system designed to transform natural language problem descriptions into structured engineering test artifacts.
 
 ---
 
-## 🚀 What It Does
+## 🚀 Overview
 
-This system converts natural language input into structured testing artifacts.
+AI Test Factory converts natural language testing scenarios into structured automotive testing outputs.
 
-Generated outputs include:
+Generated artifacts include:
 
-* ✅ Test Points
-* ✅ Test Cases
-* ✅ Bug Reports
+- ✅ Test Points
+- ✅ Test Cases
+- ✅ Bug Reports
+
+The project focuses on reusable engineering workflows, structured testing thinking, and AI-assisted collaboration.
 
 ---
 
-## 🧠 Why AI Test Factory
+## 🧠 Why This Project Exists
 
-AI Test Factory is not just a collection of test documents.
+Traditional automotive testing workflows often rely heavily on manual documentation and repetitive engineering tasks.
 
-It is a lightweight AI-assisted testing workflow designed for automotive electronics scenarios.
+AI Test Factory explores how AI can assist testing engineers by:
 
-The goal is to convert natural language problem descriptions into reusable and standardized engineering outputs.
+- Standardizing testing structures
+- Improving documentation efficiency
+- Reducing repetitive workflow costs
+- Converting experience into reusable assets
+- Supporting collaborative engineering workflows
 
-This project focuses on:
-
-* Standardized testing thinking
-* Reusable engineering assets
-* Team-oriented AI workflow
-* AI-assisted testing efficiency
-
-In real-world environments, this workflow can be connected to platforms such as Feishu and OpenClaw for collaborative testing operations.
+This project is designed as a lightweight workflow-oriented testing system rather than a simple prompt demo.
 
 ---
 
@@ -47,9 +46,34 @@ Prompt Construction
 AI-assisted Generation
       ↓
 Structured Test Artifacts
+      ├── test_points.md
+      ├── test_cases.md
+      └── bug_report.md
       ↓
 Review / Reuse / Collaboration
 ```
+
+---
+
+## 🏗 System Architecture
+
+For more details about workflow and collaboration design:
+
+- [System Architecture](docs/system_architecture.md)
+- [Feishu Collaboration Workflow](docs/feishu_workflow.md)
+- [Interview Story](docs/interview_story.md)
+
+---
+
+## ⚙ Core Features
+
+- AI-assisted automotive testing workflow
+- Structured testcase generation
+- Automated bug report generation
+- Reusable testing examples
+- Feishu-driven workflow entry
+- GitHub-based engineering management
+- Scenario-oriented testing structure
 
 ---
 
@@ -58,8 +82,10 @@ Review / Reuse / Collaboration
 | Scenario | Module | Output |
 |---|---|---|
 | IVI black screen during startup | IVI / Display | test artifacts |
+| Bluetooth playback interruption | IVI / Audio | test artifacts |
 | Rear camera no signal | Camera System | test artifacts |
 | Dashboard time reset after reboot | Instrument Cluster | test artifacts |
+| Low-voltage startup black screen | Power Management | test artifacts |
 
 ---
 
@@ -75,19 +101,10 @@ Review / Reuse / Collaboration
 
 ## 📦 Example Output
 
-* `test_points.md`
-* `test_cases.md`
-* `bug_report.md`
+- `test_points.md`
+- `test_cases.md`
+- `bug_report.md`
 
----
-
-## 🏗 System Architecture
-
-For more details about the workflow design, see:
-
-- [System Architecture](docs/system_architecture.md)
-- [Feishu Collaboration Workflow](docs/feishu_workflow.md)
-- [Interview Story](docs/interview_story.md)
 ---
 
 ## 🛠 Project Structure
@@ -98,49 +115,33 @@ AI-Test-Factory/
 ├── prompts/           # generated prompts
 ├── outputs/           # generated outputs
 ├── examples/          # scenario examples
+├── docs/              # architecture and workflow docs
 ├── README.md
 ```
 
 ---
 
-## 🎯 Purpose
-
-This project demonstrates how AI can support automotive testing workflows by:
-
-* Improving testing efficiency
-* Standardizing testing documentation
-* Simulating engineering scenarios
-* Building reusable testing structures
-
----
-
-## 💡 Why This Matters
-
-Traditional testing workflows rely heavily on manual effort and repetitive documentation.
-
-AI Test Factory explores how AI can assist engineers by automating structured testing generation while preserving engineering thinking and workflow organization.
-
----
-
 ## 📍 Current Status
 
-* ✅ Basic workflow implemented
-* ✅ Multi-scenario examples completed
-* ✅ GitHub engineering structure established
-* 🚧 Feishu integration (in progress)
-* 🚧 OpenClaw collaborative workflow (in progress)
+- ✅ Structured workflow implemented
+- ✅ Multi-scenario testing examples completed
+- ✅ GitHub engineering structure established
+- ✅ Feishu-triggered workflow prototype completed
+- 🚧 OpenClaw collaborative integration in progress
+- 🚧 Reusable testing asset system expanding
 
 ---
 
 ## 🔮 Future Plans
 
-* Feishu workflow integration
-* Team collaboration support
-* More automotive testing scenarios
-* AI-assisted testing platform evolution
+- Feishu workflow integration
+- Team collaboration support
+- More automotive testing scenarios
+- Reusable engineering asset management
+- AI-assisted testing platform evolution
 
 ---
 
 ## 👨‍💻 Author
 
-Independent developer exploring AI-driven automotive testing systems and collaborative AI workflows.
+Independent developer exploring AI-driven automotive testing workflows, engineering collaboration systems, and AI-assisted productivity in real-world environments.
