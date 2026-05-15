@@ -136,6 +136,7 @@ AI-Test-Factory/
 
 ## Demo Documents
 
+- [Pipeline Overview](docs/pipeline_overview.md)
 - [Demo Script](docs/demo_script.md)
 - [System Demo Flow](docs/system_demo_flow.md)
 - [Interview Demo Process](docs/interview_demo_process.md)
