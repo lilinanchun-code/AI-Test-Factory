@@ -79,7 +79,7 @@ based on structured scenario inputs.
 Planned future directions include:
 
 1. Feishu integration
-2. OpenClaw integration
+2. Local automation adapter
 3. Historical bug knowledge base
 4. Team collaboration workflows
 5. Structured testing knowledge accumulation

@@ -1,56 +1,55 @@
 # AI Test Factory
 
-AI-assisted automotive testing workflow system.
+AI Test Factory is a lightweight automotive electronics testing workflow that turns natural-language scenarios into structured testing artifacts.
 
-AI Test Factory is a structured workflow system designed for automotive electronics testing scenarios such as IVI, Cluster, and infotainment systems.
+It is designed for IVI, Instrument Cluster, camera, Bluetooth audio, power management, and intelligent cockpit testing scenarios.
 
-The system focuses on:
+## What It Generates
 
-- structured testing workflow generation
-- reusable testing knowledge production
-- AI-assisted test case generation
-- bug report standardization
-- workflow orchestration
+- `parsed.env` - structured scenario fields
+- `prompt.md` - generation instruction draft
+- `test_points.md` - test point checklist
+- `test_cases.md` - test case table
+- `bug_report.md` - standardized bug report draft
+- `metadata.json` - generated artifact metadata
 
-Core outputs include:
+## Safety Boundary
 
-- test_points.md
-- test_cases.md
-- bug_report.md
+This repository uses public/sample scenarios only.
 
----
+Do not put real customer data, internal logs, source code, vehicle identifiers, confidential documents, or company-only information into this project.
 
-## 🚀 Overview
+The generation layer is model-agnostic. In an enterprise environment, it should be connected only to company-approved models, rule engines, or test management systems.
 
-AI Test Factory converts natural language testing scenarios into structured automotive testing outputs.
+## Quick Start
 
-Generated artifacts include:
+```bash
+PYTHONPATH=src python3 -m ai_test_factory \
+  --input examples/cluster_time_loss/input.txt \
+  --output outputs/cluster_time_loss
+```
 
-- ✅ Test Points
-- ✅ Test Cases
-- ✅ Bug Reports
+Or:
 
-The project focuses on reusable engineering workflows, structured testing thinking, and AI-assisted collaboration.
+```bash
+bash bin/run_demo.sh
+```
 
----
+Run tests:
 
-## 🧠 Why This Project Exists
+```bash
+PYTHONPATH=src python3 -m unittest discover -s tests
+```
 
-Traditional automotive testing workflows often rely heavily on manual documentation and repetitive engineering tasks.
+## Example Input
 
-AI Test Factory explores how AI can assist testing engineers by:
+```text
+中控屏开机偶发黑屏
+模块：IVI
+场景：电源循环开机
+```
 
-- Standardizing testing structures
-- Improving documentation efficiency
-- Reducing repetitive workflow costs
-- Converting experience into reusable assets
-- Supporting collaborative engineering workflows
-
-This project is designed as a lightweight workflow-oriented testing system rather than a simple prompt demo.
-
----
-
-## 🧩 Workflow
+## Workflow
 
 ```text
 Input Scenario
@@ -59,9 +58,11 @@ Scenario Parsing
       ↓
 Prompt Construction
       ↓
-AI-assisted Generation
+Artifact Generation
       ↓
 Structured Test Artifacts
+      ├── parsed.env
+      ├── prompt.md
       ├── test_points.md
       ├── test_cases.md
       └── bug_report.md
@@ -69,136 +70,77 @@ Structured Test Artifacts
 Review / Reuse / Collaboration
 ```
 
----
+## Project Structure
 
-## 🏗 System Architecture
+```text
+AI-Test-Factory/
+├── bin/                         # demo entry scripts
+├── docs/                        # architecture, workflow, interview and project docs
+├── examples/                    # scenario examples and expected artifacts
+├── outputs/                     # generated local outputs
+├── prompts/                     # prompt templates and generation boundaries
+├── src/ai_test_factory/         # parser, generator and CLI
+├── tests/                       # unit tests
+├── pyproject.toml
+├── LICENSE
+└── README.md
+```
 
-For more details about workflow and collaboration design:
+## Current Features
 
-- [System Architecture](docs/system_architecture.md)
-- [Feishu Collaboration Workflow](docs/feishu_workflow.md)
-- [Interview Story](docs/interview_story.md)
+- Natural-language scenario parsing
+- Module and submodule inference
+- Priority inference for critical issues
+- Structured `parsed.env` generation
+- Test point generation
+- Test case generation
+- Bug report generation
+- Local CLI execution
+- Unit tests
+- Public sample scenarios for interview/demo use
 
----
-
-## ⚙ Core Features
-
-- AI-assisted automotive testing workflow
-- Structured testcase generation
-- Automated bug report generation
-- Reusable testing examples
-- Feishu-driven workflow entry
-- GitHub-based engineering management
-- Scenario-oriented testing structure
-
----
-
-## 📌 Example Scenarios
+## Example Scenarios
 
 | Scenario | Module | Output |
 |---|---|---|
 | IVI black screen during startup | IVI / Display | test artifacts |
-| Bluetooth playback interruption | IVI / Audio | test artifacts |
-| Rear camera no signal | Camera System | test artifacts |
-| Dashboard time reset after reboot | Instrument Cluster | test artifacts |
-| Low-voltage startup black screen | Power Management | test artifacts |
+| Bluetooth playback interruption | Bluetooth / Audio | test artifacts |
+| Rear camera no signal | Camera / Rear View | test artifacts |
+| Dashboard time reset after reboot | Cluster / Time Sync | test artifacts |
+| Low-voltage startup black screen | Power / Power Management | test artifacts |
 
----
+## Documentation
 
-## 📄 Example Input
-
-```text
-中控屏开机偶发黑屏
-模块：IVI
-场景：电源循环开机
-```
-
----
-
-## 📦 Example Output
-
-- `test_points.md`
-- `test_cases.md`
-- `bug_report.md`
-
----
-
-## 🛠 Project Structure
-
-```text
-AI-Test-Factory/
-├── bin/               # workflow scripts
-├── prompts/           # generated prompts
-├── outputs/           # generated outputs
-├── examples/          # scenario examples
-├── docs/              # architecture and workflow docs
-├── README.md
-```
-
----
-
-## Demo Documents
-
+- [System Architecture](docs/system_architecture.md)
+- [Engineering Readiness](docs/engineering_readiness.md)
+- [Industry Alignment](docs/industry_alignment.md)
+- [Feishu Collaboration Workflow](docs/feishu_workflow.md)
 - [Pipeline Overview](docs/pipeline_overview.md)
 - [Demo Script](docs/demo_script.md)
-- [System Demo Flow](docs/system_demo_flow.md)
-- [Interview Demo Process](docs/interview_demo_process.md)
+- [Interview Pitch](docs/interview_pitch.md)
+- [Resume Project Description](docs/resume_project_description.md)
 - [Example Showcase](docs/example_showcase.md)
-- [System Architecture](docs/system_architecture.md)
-- [Project Positioning](docs/project_positioning.md)
 - [Examples Index](docs/examples_index.md)
 
----
+## Current Status
 
-## Current Focus
+- Structured workflow implemented
+- Multi-scenario testing examples completed
+- Local CLI added
+- Unit tests added
+- Local unit tests added
+- Feishu collaboration design documented
+- Model-agnostic generation boundary documented
 
-当前阶段重点：
+## Future Plans
 
-- 测试场景沉淀
-- Prompt Workflow
-- AI 测试资产生成
-- 多入口协作
-- 演示能力建设
+- Add JSON schema validation
+- Add richer automotive scenario classification
+- Add Feishu bot adapter after data/security boundary review
+- Add export formats for test management tools
+- Add screenshots and a v0.1.0 release package
+- Expand reusable automotive testing asset library
 
----
+## Author
 
-## Long-Term Direction
-
-未来希望逐步扩展为：
-
-AI-assisted Testing Workflow Platform
-
-重点探索：
-
-- 测试资产沉淀
-- Prompt 模块化
-- 企业协作
-- AI + Testing Workflow
-- 工程知识复用
-
----
-
-## 📍 Current Status
-
-- ✅ Structured workflow implemented
-- ✅ Multi-scenario testing examples completed
-- ✅ GitHub engineering structure established
-- ✅ Feishu-triggered workflow prototype completed
-- 🚧 OpenClaw collaborative integration in progress
-- 🚧 Reusable testing asset system expanding
-
----
-
-## 🔮 Future Plans
-
-- Feishu workflow integration
-- Team collaboration support
-- More automotive testing scenarios
-- Reusable engineering asset management
-- AI-assisted testing platform evolution
-
----
-
-## 👨‍💻 Author
-
-Independent developer exploring AI-driven automotive testing workflows, engineering collaboration systems, and AI-assisted productivity in real-world environments.
+Independent project exploring automotive testing workflows, structured quality documentation, and safe AI-assisted engineering productivity.

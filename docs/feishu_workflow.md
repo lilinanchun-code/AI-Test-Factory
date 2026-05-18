@@ -15,7 +15,7 @@ Allow testing engineers to submit testing scenarios directly through Feishu and 
 ```text
 Engineer submits scenario in Feishu
             ↓
-OpenClaw receives request
+Approved workflow adapter receives request
             ↓
 AI Test Factory parses scenario
             ↓

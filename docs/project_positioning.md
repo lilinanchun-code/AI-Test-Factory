@@ -11,7 +11,7 @@ but to build a reusable workflow for automotive testing teams.
 
 Natural Language Input
 ↓
-OpenClaw Dispatch
+Workflow Adapter Dispatch
 ↓
 Structured Prompt Generation
 ↓
@@ -57,4 +57,3 @@ Each scenario can automatically generate:
 Build a scalable AI-assisted automotive testing workflow
 for interview demonstrations, knowledge accumulation,
 and future team collaboration.
-

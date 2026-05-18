@@ -113,7 +113,7 @@ The core workflow should remain stable and understandable.
 Future expansion directions:
 
 - Feishu integration
-- OpenClaw integration
+- Local automation adapter
 - knowledge base accumulation
 - historical bug learning
 - team collaboration workflows

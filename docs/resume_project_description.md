@@ -30,7 +30,7 @@ Designed for structured testing generation, workflow simulation, and reusable en
 - Structured prompt generation
 - Markdown-based reusable outputs
 - AI-assisted engineering workflow
-- Feishu + OpenClaw collaboration design
+- Feishu + local automation collaboration design
 
 ---
 

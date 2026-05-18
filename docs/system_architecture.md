@@ -172,8 +172,8 @@ Engineering Asset Accumulation
 The project explores lightweight AI collaboration workflows through:
 
 - Feishu integration
-- OpenClaw integration
-- AI-assisted engineering workflows
+- Local automation integration
+- Model-agnostic engineering workflows
 - Reusable testing structures
 
 The long-term goal is to build a reusable AI-assisted engineering collaboration system.
@@ -202,5 +202,5 @@ Current implementation status:
 - ✅ Multi-scenario examples completed
 - ✅ GitHub engineering structure established
 - ✅ Feishu-triggered workflow prototype completed
-- 🚧 OpenClaw collaborative integration in progress
+- 🚧 Local automation adapter in progress
 - 🚧 Reusable engineering asset system expanding

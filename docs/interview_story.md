@@ -36,7 +36,7 @@ These scenarios are suitable for workflow standardization and AI-assisted genera
 
 ---
 
-## Why Feishu + OpenClaw
+## Why Feishu + Workflow Adapter
 
 I wanted the workflow to be more team-oriented rather than a standalone local script.
 
@@ -46,13 +46,13 @@ Feishu provides:
 - Easier team adoption
 - Lower operational barriers
 
-OpenClaw provides:
+The workflow adapter provides:
 
 - Workflow orchestration
-- AI integration capability
+- replaceable generation capability
 - Multi-platform extensibility
 
-The combination allows AI workflows to move closer to real engineering collaboration environments.
+The combination allows structured testing workflows to move closer to real engineering collaboration environments while keeping the tool layer replaceable.
 
 ---
 
