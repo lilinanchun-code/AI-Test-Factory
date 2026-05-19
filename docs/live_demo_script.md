@@ -1,120 +1,101 @@
-# AI Test Factory - Live Demo Script
+# AI-Test-Factory 面试 Live Demo 脚本
 
-## 1. Project Introduction
+## 1. 开场定位
 
-AI Test Factory is an AI-assisted automotive testing workflow system.
+我这个项目不是要替代测试工程师，也不是把自动生成结果当最终结论。
 
-The goal is not replacing testers.
+它解决的是测试工作里很基础、但很容易写散的问题：一个汽车电子故障出现后，如何把现象快速拆成测试点、测试用例和缺陷报告草稿，再由测试人员人工评审。
 
-The goal is improving testing workflow efficiency and structured knowledge production.
+## 2. 演示入口
 
+打开：
 
----
+```text
+demo/live_demo.html
+```
 
-## 2. Why I Built This
+这个页面是本地静态演示，不需要联网，不连接任何外部模型，也不使用真实企业数据。
 
-Traditional testing workflows contain many repetitive tasks:
+## 3. 推荐演示案例
 
-- organizing testing points
-- writing test cases
-- generating bug reports
-- maintaining documentation consistency
+首选案例：
 
-I wanted to explore whether AI can assist these structured production workflows.
+```text
+中控屏开机偶发黑屏
+模块：IVI
+场景：电源循环开机
+```
 
+备选案例：
 
----
-
-## 3. Current Workflow
-
-Current workflow:
-
-Input Scenario
-↓
-Structured Parsing
-↓
-Prompt Construction
-↓
-AI-assisted Generation
-↓
-Structured Outputs
-
-Outputs include:
-
-- test_points.md
-- test_cases.md
-- bug_report.md
-
-
----
-
-## 4. Demo Scenario
-
-Example input:
-
-仪表盘重启后时间丢失
-
+```text
+仪表重启后时间丢失
 模块：Cluster
-
 场景：整车断电重启
+```
 
+## 4. 两分钟演示流程
 
----
+### 第一步：输入问题
 
-## 5. Demo Flow
+这里输入一个公开示例场景，比如“中控屏开机偶发黑屏”。系统会识别模块、场景和优先级。
 
-Step 1:
+### 第二步：解释结构化结果
 
-Input the scenario through the workflow entrance.
+可以看到它不是简单写一段话，而是把问题拆成：
 
+- 模块；
+- 子模块；
+- 测试场景；
+- 测试目标；
+- 优先级。
 
-Step 2:
+### 第三步：展示三类核心资产
 
-The system parses structured information.
+切换到：
 
+- `test_points.md`：看测试关注点；
+- `test_cases.md`：看执行步骤和预期结果；
+- `bug_report.md`：看缺陷报告结构。
 
-Step 3:
+### 第四步：强调人工评审
 
-The workflow generates:
+最后强调：这些输出只是草稿，真实测试环境里必须由测试工程师结合需求、日志、版本和实车/台架环境进行评审。
 
-- testing points
-- test cases
-- bug reports
+## 5. 面试表达
 
+可以这样说：
 
-Step 4:
+```text
+我做这个项目的目的，是训练自己理解测试工作的基本链路：发现问题、拆解场景、设计验证点、记录结果、形成报告。
 
-Outputs are automatically organized into structured directories.
+比如中控屏开机黑屏这个问题，系统会生成测试点、用例和缺陷报告草稿。它不会替代人工判断，但能帮助新人建立结构化记录习惯，也方便后续沉淀成可复用模板。
+```
 
+## 6. 不主动展开的内容
 
----
+不主动强调具体外部模型、境外工具或复杂自动化链路。
 
-## 6. Key Design Concepts
+推荐表达：
 
-### Structure First
+- 本地演示；
+- 公开示例数据；
+- 模型可替换；
+- 企业环境中按公司批准工具接入；
+- 输出必须人工评审。
 
-Stable structures are more important than fast generation.
+## 7. 主管可能追问
 
+### 这是真实项目吗？
 
-### Production First
+可以回答：
 
-The workflow should support continuous production instead of one-time demos.
+这是一个面向汽车电子测试文档流程的个人项目，不接触真实企业数据。它更像一个可演示的流程原型，重点展示我对测试点、测试用例、缺陷报告和流程沉淀的理解。
 
+### 生成内容能直接用吗？
 
-### Minimal Main Pipeline
+不能直接当最终结论。它是测试文档草稿，需要结合真实需求、测试环境、日志和版本信息进行人工评审。
 
-The core workflow should remain stable and understandable.
+### 你贡献最大的部分是什么？
 
-
----
-
-## 7. Future Directions
-
-Future expansion directions:
-
-- Feishu integration
-- Local automation adapter
-- knowledge base accumulation
-- historical bug learning
-- team collaboration workflows
-- reusable testing templates
+我重点做的是流程拆解、场景归类、输出结构和工程化整理，让项目能本地运行、有示例、有文档、有测试，而不是停留在一次性问答。

@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-Test-Factory Live Demo</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8f7;
+      --panel: #ffffff;
+      --panel-soft: #f1f4f3;
+      --ink: #1f2a2a;
+      --muted: #66706f;
+      --line: #d9e0dd;
+      --teal: #157a6e;
+      --teal-dark: #0e594f;
+      --amber: #a76412;
+      --rose: #b74747;
+      --slate: #44515a;
+      --code-bg: #17201f;
+      --code-ink: #edf6f2;
+      --shadow: 0 18px 45px rgba(22, 38, 35, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    button,
+    textarea,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      border-right: 1px solid var(--line);
+      background: #fbfcfb;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: 0;
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .preset-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .preset {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 11px 12px;
+      cursor: pointer;
+      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .preset:hover,
+    .preset.is-active {
+      border-color: rgba(21, 122, 110, 0.6);
+      box-shadow: 0 8px 20px rgba(21, 122, 110, 0.11);
+      transform: translateY(-1px);
+    }
+
+    .preset strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    .preset span {
+      color: var(--muted);
+      display: block;
+      font-size: 12px;
+    }
+
+    .side-note {
+      border: 1px solid var(--line);
+      background: var(--panel-soft);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--slate);
+      font-size: 13px;
+    }
+
+    .main {
+      padding: 22px;
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr);
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .topbar h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .topbar p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 8px;
+      min-height: 38px;
+      padding: 8px 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .btn.primary {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: #ffffff;
+    }
+
+    .btn.primary:hover {
+      background: var(--teal-dark);
+    }
+
+    .btn:hover {
+      border-color: var(--teal);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.9fr) minmax(420px, 1.25fr);
+      gap: 16px;
+      min-height: 0;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .panel-header {
+      padding: 14px 16px 0;
+    }
+
+    .panel-header h3 {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .panel-body {
+      padding: 16px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--slate);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 11px;
+      background: #fff;
+      color: var(--ink);
+      min-height: 40px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 118px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(21, 122, 110, 0.14);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .metric {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 76px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 18px;
+      overflow-wrap: anywhere;
+    }
+
+    .metric.priority-p0 strong {
+      color: var(--rose);
+    }
+
+    .metric.priority-p1 strong {
+      color: var(--amber);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      padding: 12px 12px 0;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tab {
+      border: 0;
+      border-radius: 8px 8px 0 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 9px 10px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .tab.is-active {
+      color: var(--ink);
+      background: var(--panel-soft);
+      font-weight: 700;
+    }
+
+    .artifact-shell {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      min-height: 580px;
+      height: calc(100vh - 230px);
+    }
+
+    .artifact-toolbar {
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    pre {
+      margin: 0 16px 16px;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      border-radius: 8px;
+      padding: 16px;
+      overflow: auto;
+      min-height: 0;
+      height: 100%;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+      tab-size: 2;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .flow-step {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: var(--panel);
+      color: var(--slate);
+      min-height: 70px;
+    }
+
+    .flow-step strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .flow-step span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 180ms ease, transform 180ms ease;
+      font-size: 13px;
+    }
+
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 980px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .preset-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .workspace,
+      .status-grid,
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .artifact-shell {
+        height: auto;
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .main,
+      .sidebar {
+        padding: 14px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .preset-list,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .btn {
+        flex: 1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>AI-Test-Factory</h1>
+        <p>汽车电子测试资产生成演示</p>
+      </div>
+
+      <div class="preset-list" id="presetList"></div>
+
+      <div class="side-note">
+        仅使用公开示例数据。本地运行，不连接外部模型或企业系统；输出结果需要测试人员人工评审。
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="topbar">
+        <div>
+          <h2>Live Demo Console</h2>
+          <p>输入汽车电子问题，现场生成测试点、测试用例和缺陷报告。</p>
+        </div>
+        <div class="actions">
+          <button class="btn" id="resetBtn" type="button">重置</button>
+          <button class="btn primary" id="generateBtn" type="button">生成资产</button>
+        </div>
+      </section>
+
+      <section class="status-grid" aria-label="demo status">
+        <div class="metric">
+          <span>Module</span>
+          <strong id="metricModule">IVI</strong>
+        </div>
+        <div class="metric" id="priorityMetric">
+          <span>Priority</span>
+          <strong id="metricPriority">P0</strong>
+        </div>
+        <div class="metric">
+          <span>Artifacts</span>
+          <strong>5 files</strong>
+        </div>
+        <div class="metric">
+          <span>Review Gate</span>
+          <strong>Manual</strong>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <div class="panel">
+          <div class="panel-header">
+            <h3>Scenario Input</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-grid">
+              <label>
+                原始问题
+                <textarea id="scenarioText"></textarea>
+              </label>
+
+              <div class="two-col">
+                <label>
+                  模块
+                  <select id="moduleSelect">
+                    <option>IVI</option>
+                    <option>Cluster</option>
+                    <option>Camera</option>
+                    <option>Bluetooth</option>
+                    <option>Power</option>
+                    <option>General</option>
+                  </select>
+                </label>
+
+                <label>
+                  优先级
+                  <select id="prioritySelect">
+                    <option>P0</option>
+                    <option>P1</option>
+                    <option>P2</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>
+                场景
+                <input id="sceneInput" type="text">
+              </label>
+
+              <label>
+                测试目标
+                <input id="goalInput" type="text">
+              </label>
+
+              <div class="flow" aria-label="workflow">
+                <div class="flow-step"><strong>1. 输入</strong><span>问题描述</span></div>
+                <div class="flow-step"><strong>2. 解析</strong><span>模块与场景</span></div>
+                <div class="flow-step"><strong>3. 生成</strong><span>测试资产草稿</span></div>
+                <div class="flow-step"><strong>4. 评审</strong><span>人工确认</span></div>
+                <div class="flow-step"><strong>5. 沉淀</strong><span>复用为模板</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel artifact-shell">
+          <div>
+            <div class="tabs" id="tabs"></div>
+            <div class="artifact-toolbar">
+              <span id="artifactName">parsed.env</span>
+              <div class="actions">
+                <button class="btn" id="copyBtn" type="button">复制当前资产</button>
+                <button class="btn" id="downloadBtn" type="button">下载当前资产</button>
+              </div>
+            </div>
+          </div>
+          <pre id="artifactOutput"></pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast">已复制</div>
+
+  <script>
+    const presets = [
+      {
+        title: "中控屏开机偶发黑屏",
+        module: "IVI",
+        scene: "电源循环开机",
+        priority: "P0",
+        text: "中控屏开机偶发黑屏\n模块：IVI\n场景：电源循环开机",
+      },
+      {
+        title: "蓝牙音乐播放中断",
+        module: "Bluetooth",
+        scene: "蓝牙连接与音频播放",
+        priority: "P1",
+        text: "蓝牙音乐播放中断\n模块：Bluetooth\n场景：蓝牙连接与音频播放",
+      },
+      {
+        title: "倒车影像无信号",
+        module: "Camera",
+        scene: "R 挡倒车",
+        priority: "P0",
+        text: "倒车影像无信号\n模块：Camera\n场景：R 挡倒车",
+      },
+      {
+        title: "仪表重启后时间丢失",
+        module: "Cluster",
+        scene: "整车断电重启",
+        priority: "P0",
+        text: "仪表重启后时间丢失\n模块：Cluster\n场景：整车断电重启",
+      },
+      {
+        title: "低压启动中控黑屏",
+        module: "Power",
+        scene: "低压启动",
+        priority: "P0",
+        text: "低压启动中控黑屏\n模块：Power\n场景：低压启动",
+      },
+    ];
+
+    const artifactTabs = [
+      ["parsed", "parsed.env"],
+      ["points", "test_points.md"],
+      ["cases", "test_cases.md"],
+      ["bug", "bug_report.md"],
+      ["pitch", "demo_pitch.md"],
+    ];
+
+    const state = {
+      selectedPreset: 0,
+      activeTab: "parsed",
+      artifacts: {},
+    };
+
+    const els = {
+      presetList: document.getElementById("presetList"),
+      scenarioText: document.getElementById("scenarioText"),
+      moduleSelect: document.getElementById("moduleSelect"),
+      prioritySelect: document.getElementById("prioritySelect"),
+      sceneInput: document.getElementById("sceneInput"),
+      goalInput: document.getElementById("goalInput"),
+      metricModule: document.getElementById("metricModule"),
+      metricPriority: document.getElementById("metricPriority"),
+      priorityMetric: document.getElementById("priorityMetric"),
+      tabs: document.getElementById("tabs"),
+      artifactName: document.getElementById("artifactName"),
+      artifactOutput: document.getElementById("artifactOutput"),
+      generateBtn: document.getElementById("generateBtn"),
+      resetBtn: document.getElementById("resetBtn"),
+      copyBtn: document.getElementById("copyBtn"),
+      downloadBtn: document.getElementById("downloadBtn"),
+      toast: document.getElementById("toast"),
+    };
+
+    function parseText(text) {
+      const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+      const fields = {};
+      const loose = [];
+      for (const line of lines) {
+        const match = line.match(/^([^:：=]+)\s*[:：=]\s*(.+)$/);
+        if (match) {
+          fields[match[1].trim().toLowerCase()] = match[2].trim();
+        } else {
+          loose.push(line);
+        }
+      }
+      const topic = fields["主题"] || fields["标题"] || fields["问题"] || fields.topic || loose[0] || "未命名测试场景";
+      const moduleName = fields["模块"] || fields.module || inferModule(topic);
+      const scene = fields["场景"] || fields.scene || inferScene(topic);
+      const priority = fields["优先级"] || fields.priority || inferPriority(topic);
+      return {
+        topic,
+        module: normalizeModule(moduleName),
+        scene,
+        submodule: inferSubmodule(normalizeModule(moduleName), topic),
+        goal: `验证“${topic}”场景下的功能表现、复现路径与恢复机制`,
+        priority: normalizePriority(priority),
+      };
+    }
+
+    function normalizeModule(value) {
+      const lower = String(value).toLowerCase();
+      if (["ivi", "中控", "车机", "座舱"].includes(lower)) return "IVI";
+      if (["cluster", "仪表", "仪表盘"].includes(lower)) return "Cluster";
+      if (["camera", "倒车影像", "摄像头"].includes(lower)) return "Camera";
+      if (["bluetooth", "bt", "蓝牙"].includes(lower)) return "Bluetooth";
+      if (["power", "电源", "低压"].includes(lower)) return "Power";
+      return value || "General";
+    }
+
+    function inferModule(topic) {
+      const lower = topic.toLowerCase();
+      if (["中控", "车机", "屏", "carplay", "导航", "ivi"].some((word) => lower.includes(word))) return "IVI";
+      if (["仪表", "速度", "里程", "时间"].some((word) => lower.includes(word))) return "Cluster";
+      if (["倒车", "摄像头", "影像", "camera"].some((word) => lower.includes(word))) return "Camera";
+      if (["蓝牙", "音乐", "播放", "bluetooth"].some((word) => lower.includes(word))) return "Bluetooth";
+      if (["低压", "电源", "启动", "重启"].some((word) => lower.includes(word))) return "Power";
+      return "General";
+    }
+
+    function inferScene(topic) {
+      if (topic.includes("低压")) return "低压启动";
+      if (topic.includes("重启") || topic.includes("断电")) return "整车断电重启";
+      if (topic.includes("启动") || topic.includes("开机")) return "电源循环开机";
+      if (topic.includes("倒车")) return "R 挡倒车";
+      if (topic.includes("蓝牙") || topic.includes("播放")) return "蓝牙连接与音频播放";
+      return "常规功能验证";
+    }
+
+    function inferSubmodule(moduleName, topic) {
+      const lower = topic.toLowerCase();
+      if (moduleName === "IVI") {
+        if (topic.includes("黑屏") || topic.includes("屏")) return "Display";
+        if (lower.includes("carplay")) return "Projection";
+        return "Infotainment";
+      }
+      if (moduleName === "Cluster") {
+        if (topic.includes("时间")) return "RTC / Time Sync";
+        return "Instrument Display";
+      }
+      if (moduleName === "Camera") return "Rear View Camera";
+      if (moduleName === "Bluetooth") return "Audio";
+      if (moduleName === "Power") return "Power Management";
+      return "General";
+    }
+
+    function inferPriority(topic) {
+      return ["黑屏", "无信号", "无法", "死机", "低压", "丢失"].some((word) => topic.includes(word)) ? "P0" : "P1";
+    }
+
+    function normalizePriority(value) {
+      const upper = String(value).trim().toUpperCase();
+      if (["HIGH", "H"].includes(upper)) return "P0";
+      if (["MEDIUM", "M"].includes(upper)) return "P1";
+      if (["LOW", "L"].includes(upper)) return "P2";
+      if (["P0", "P1", "P2", "P3"].includes(upper)) return upper;
+      return "P1";
+    }
+
+    function scenarioFromForm() {
+      const parsed = parseText(els.scenarioText.value);
+      return {
+        ...parsed,
+        module: els.moduleSelect.value,
+        scene: els.sceneInput.value.trim() || parsed.scene,
+        goal: els.goalInput.value.trim() || parsed.goal,
+        priority: els.prioritySelect.value,
+        submodule: inferSubmodule(els.moduleSelect.value, parsed.topic),
+      };
+    }
+
+    function buildArtifacts(scenario) {
+      const generatedAt = new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
+      const parsed = [
+        `TOPIC='${scenario.topic}'`,
+        `MODULE='${scenario.module}'`,
+        `SUBMODULE='${scenario.submodule}'`,
+        `SCENE='${scenario.scene}'`,
+        `GOAL='${scenario.goal}'`,
+        `PRIORITY='${scenario.priority}'`,
+        "OUTPUT_TYPE='all'",
+      ].join("\n");
+
+      const points = `# Test Points: ${scenario.topic}
+
+Generated at: ${generatedAt}
+
+## Objective
+
+${scenario.goal}
+
+## Scope
+
+- Module: ${scenario.module}
+- Submodule: ${scenario.submodule}
+- Scene: ${scenario.scene}
+
+## Test Points
+
+| ID | Test Point | Focus | Priority |
+|---|---|---|---|
+| TP_001 | 基础功能验证 | 确认 ${scenario.module} 在${scenario.scene}下是否满足预期 | ${scenario.priority} |
+| TP_002 | 复现路径验证 | 记录前置条件、操作步骤、触发频率和复现概率 | ${scenario.priority} |
+| TP_003 | 边界条件验证 | 覆盖电源、网络、温度、连续操作等边界条件 | P1 |
+| TP_004 | 日志与状态检查 | 采集系统日志、模块状态、错误码和关键时间点 | P1 |
+| TP_005 | 恢复机制验证 | 确认异常后重启、休眠唤醒或重新连接是否恢复 | P1 |
+| TP_006 | 回归验证 | 修复后执行同场景与相邻场景回归测试 | P2 |
+`;
+
+      const cases = `# Test Cases: ${scenario.topic}
+
+Generated at: ${generatedAt}
+
+## Preconditions
+
+- Test bench or vehicle state is ready.
+- Relevant logs can be collected.
+- The scenario uses public/sample data only.
+
+## Test Cases
+
+| ID | Title | Steps | Expected Result | Priority |
+|---|---|---|---|---|
+| TC_001 | Normal scenario baseline | 1. Prepare ${scenario.module}. 2. Execute ${scenario.scene}. 3. Observe system behavior. | Function works as expected and no abnormal logs appear. | ${scenario.priority} |
+| TC_002 | Repeated reproduction | 1. Repeat the scenario 10 times. 2. Record reproduction frequency. | No abnormal behavior, or reproduction rate is clearly recorded. | ${scenario.priority} |
+| TC_003 | Boundary condition | 1. Add boundary conditions such as low voltage, quick restart, or reconnection. 2. Observe behavior. | System remains stable or failure is traceable. | P1 |
+| TC_004 | Recovery validation | 1. Trigger the abnormal scenario. 2. Restart, reconnect, or wake up the system. | System can recover and key functions return to normal. | P1 |
+| TC_005 | Regression validation | 1. Execute related neighboring scenarios. 2. Compare with baseline behavior. | No new regression issue is introduced. | P2 |
+`;
+
+      const bug = `# Bug Report: ${scenario.topic}
+
+Generated at: ${generatedAt}
+
+## Summary
+
+${scenario.topic}
+
+## Module
+
+- Module: ${scenario.module}
+- Submodule: ${scenario.submodule}
+- Scene: ${scenario.scene}
+
+## Severity / Priority
+
+- Severity: Major
+- Priority: ${scenario.priority}
+
+## Preconditions
+
+- Test environment is prepared.
+- Logs and reproduction evidence can be collected.
+- No confidential production data is included.
+
+## Steps To Reproduce
+
+1. Prepare the target module and confirm baseline state.
+2. Execute the scenario: ${scenario.scene}.
+3. Observe whether the issue appears.
+4. Record logs, screenshots, timing, and reproduction frequency.
+
+## Actual Result
+
+The issue may appear under the described scenario. Exact result should be filled after test execution.
+
+## Expected Result
+
+The system should complete the scenario without abnormal behavior, and recovery mechanisms should work as designed.
+
+## Evidence To Collect
+
+- Operation video or screenshots
+- System logs
+- Error codes
+- Reproduction frequency
+- Software / hardware version
+
+## Next Action
+
+- Confirm reproduction stability.
+- Assign to responsible module owner.
+- Retest after fix and run regression validation.
+`;
+
+      const pitch = `# Demo Pitch
+
+我这个项目不把自动输出当最终结论，而是把测试工作中重复但重要的文档链路先结构化。
+
+现场可以看到：输入一个汽车电子问题后，系统会把它拆成模块、场景、优先级，再生成测试点、测试用例和缺陷报告草稿。
+
+它的价值主要有三点：
+
+1. 帮新人理解测试分析路径，不是只会描述现象。
+2. 让问题记录包含复现步骤、预期结果、实际结果、证据和回归验证。
+3. 所有输出都需要人工评审，并且只使用公开示例数据，未来接入企业环境时会遵守公司批准的工具和数据边界。
+`;
+
+      return { parsed, points, cases, bug, pitch };
+    }
+
+    function renderPresets() {
+      els.presetList.innerHTML = "";
+      presets.forEach((preset, index) => {
+        const button = document.createElement("button");
+        button.className = `preset${index === state.selectedPreset ? " is-active" : ""}`;
+        button.type = "button";
+        button.innerHTML = `<strong>${preset.title}</strong><span>${preset.module} · ${preset.scene}</span>`;
+        button.addEventListener("click", () => loadPreset(index));
+        els.presetList.appendChild(button);
+      });
+    }
+
+    function renderTabs() {
+      els.tabs.innerHTML = "";
+      artifactTabs.forEach(([key, label]) => {
+        const button = document.createElement("button");
+        button.className = `tab${key === state.activeTab ? " is-active" : ""}`;
+        button.type = "button";
+        button.textContent = label;
+        button.addEventListener("click", () => {
+          state.activeTab = key;
+          renderTabs();
+          renderArtifact();
+        });
+        els.tabs.appendChild(button);
+      });
+    }
+
+    function renderArtifact() {
+      const tab = artifactTabs.find(([key]) => key === state.activeTab);
+      els.artifactName.textContent = tab ? tab[1] : "artifact";
+      els.artifactOutput.textContent = state.artifacts[state.activeTab] || "";
+    }
+
+    function updateMetrics(scenario) {
+      els.metricModule.textContent = scenario.module;
+      els.metricPriority.textContent = scenario.priority;
+      els.priorityMetric.classList.remove("priority-p0", "priority-p1");
+      if (scenario.priority === "P0") els.priorityMetric.classList.add("priority-p0");
+      if (scenario.priority === "P1") els.priorityMetric.classList.add("priority-p1");
+    }
+
+    function generate() {
+      const scenario = scenarioFromForm();
+      state.artifacts = buildArtifacts(scenario);
+      updateMetrics(scenario);
+      renderArtifact();
+    }
+
+    function loadPreset(index) {
+      const preset = presets[index];
+      state.selectedPreset = index;
+      els.scenarioText.value = preset.text;
+      const parsed = parseText(preset.text);
+      els.moduleSelect.value = preset.module || parsed.module;
+      els.prioritySelect.value = preset.priority || parsed.priority;
+      els.sceneInput.value = preset.scene || parsed.scene;
+      els.goalInput.value = parsed.goal;
+      renderPresets();
+      generate();
+    }
+
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("is-visible");
+      window.setTimeout(() => els.toast.classList.remove("is-visible"), 1500);
+    }
+
+    async function copyCurrent() {
+      const text = state.artifacts[state.activeTab] || "";
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("已复制当前资产");
+      } catch (error) {
+        showToast("浏览器未允许复制");
+      }
+    }
+
+    function downloadCurrent() {
+      const tab = artifactTabs.find(([key]) => key === state.activeTab);
+      const filename = tab ? tab[1] : "artifact.md";
+      const content = state.artifacts[state.activeTab] || "";
+      const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      showToast("已生成下载文件");
+    }
+
+    els.generateBtn.addEventListener("click", generate);
+    els.resetBtn.addEventListener("click", () => loadPreset(state.selectedPreset));
+    els.copyBtn.addEventListener("click", copyCurrent);
+    els.downloadBtn.addEventListener("click", downloadCurrent);
+
+    renderPresets();
+    renderTabs();
+    loadPreset(0);
+  </script>
+</body>
+</html>

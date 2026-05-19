@@ -35,6 +35,12 @@ Or:
 bash bin/run_demo.sh
 ```
 
+Open the local live demo:
+
+```text
+demo/live_demo.html
+```
+
 Run tests:
 
 ```bash
@@ -96,6 +102,7 @@ AI-Test-Factory/
 - Test case generation
 - Bug report generation
 - Local CLI execution
+- Browser-based local live demo
 - Unit tests
 - Public sample scenarios for interview/demo use
 
@@ -117,6 +124,7 @@ AI-Test-Factory/
 - [Feishu Collaboration Workflow](docs/feishu_workflow.md)
 - [Pipeline Overview](docs/pipeline_overview.md)
 - [Demo Script](docs/demo_script.md)
+- [Live Demo Script](docs/live_demo_script.md)
 - [Interview Pitch](docs/interview_pitch.md)
 - [Resume Project Description](docs/resume_project_description.md)
 - [Example Showcase](docs/example_showcase.md)
@@ -128,7 +136,6 @@ AI-Test-Factory/
 - Multi-scenario testing examples completed
 - Local CLI added
 - Unit tests added
-- Local unit tests added
 - Feishu collaboration design documented
 - Model-agnostic generation boundary documented
 
