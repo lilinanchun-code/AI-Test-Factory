@@ -122,6 +122,7 @@ AI-Test-Factory/
 - [Engineering Readiness](docs/engineering_readiness.md)
 - [Industry Alignment](docs/industry_alignment.md)
 - [Feishu Collaboration Workflow](docs/feishu_workflow.md)
+- [Mac-Native Codex Workflow](docs/mac_native_codex_workflow.md)
 - [Pipeline Overview](docs/pipeline_overview.md)
 - [Demo Script](docs/demo_script.md)
 - [Live Demo Script](docs/live_demo_script.md)
